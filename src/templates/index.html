@@ -1,0 +1,42 @@
+User
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strawberry Lemonade File Manager</title>
+</head>
+<body>
+    <div>
+        {% if not selected_item %}
+            <h2>Files and Folders:</h2>
+            <ul>
+                {% for item in files_and_folders %}
+                    <li>
+                        <form action="/" method="post">
+                            <input type="hidden" name="selected_item" value="{{ item }}">
+                            <button type="submit">{{ item }}</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2>Selected Item: {{ selected_item }}</h2>
+            {% if selected_item_content is iterable %}
+                <ul>
+                    {% for sub_item in selected_item_content %}
+                        <li>
+                            <form action="/" method="post">
+                                <input type="hidden" name="selected_item" value="{{ sub_item }}">
+                                <button type="submit">{{ sub_item }}</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>{{ selected_item_content }}</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
